@@ -22,7 +22,7 @@ button {
 }
 
 .main-card {
-    min-width: 300px;
+    min-width: 600px;
     max-width: 70%;
     min-height: 460px;
     max-height: 70%;
@@ -100,10 +100,11 @@ button {
 @media(max-width: 320px) {
 
     .main-card {
+        min-width: 300px;
         max-width: 300px;
         max-height: 460px;
         overflow: hidden;
-    }    
+    }
 }
 
 

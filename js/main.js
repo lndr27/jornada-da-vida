@@ -35,7 +35,7 @@
     function init() {
 
         $.getJSON("./js/challenges.json", function(data) {
-            CHALLENGES = JSON.parse(data);
+            CHALLENGES = data;
         });
     }
     init();
