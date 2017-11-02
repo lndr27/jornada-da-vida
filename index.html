@@ -1,10 +1,31 @@
 <html>
     <head>
-        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-        
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Roda da Vida</title>
     </head>
-    <body>
-        <h1>Roda da Vida</h1>
+    <body>       
+
+        <div class="main-card">
+
+            <h2 class="challenge-type">RODA DA VIDA</h2>
+
+            <div class="text-scroller-container">                
+                <p>
+                    introducao
+                </p>   
+            </div>
+
+        </div>
+        <div class="buttons">
+            <button class="btn btn-rounded btn-past" data-time="past">Passado</button>
+            <button class="btn btn-rounded btn-present" data-time="present">Presente</button>
+            <button class="btn btn-rounded btn-future" data-time="future">Futuro</button>
+        </div>
+
+        <script src="./js/vendor/jquery-3.2.1.min.js"></script>
+        <script src="./js/vendor/underscore.js"></script>
+        <script src="./js/main.js"></script>
     </body>
 </html>

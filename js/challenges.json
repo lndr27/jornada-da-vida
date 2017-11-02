@@ -1,0 +1,17 @@
+{
+    "past"    : [
+        { "type": "Pergunta", "text": "Pergunta Passado: 1"},
+        { "type": "História", "text": "História Passado: 1"},
+        { "type": "Experiência", "text": "Experiência Passado: 1"}
+    ],
+    "present" : [ 
+        { "type": "Pergunta", "text": "Pergunta Presente: 1"},
+        { "type": "História", "text": "História Presente: 1"},
+        { "type": "Experiência", "text": "Experiência Presente: 1"}
+    ],
+    "future"  : [ 
+        { "type": "Pergunta", "text": "Pergunta Futuro: 1"},
+        { "type": "História", "text": "História Futuro: 1"},
+        { "type": "Experiência", "text": "Experiência Futuro: 1"}
+    ]    
+}

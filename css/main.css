@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #333;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'Alegreya Sans', sans-serif;
+}
+
+button {
+    font-family: 'Alegreya Sans', sans-serif;
+}
+
+.main-card {
+    min-width: 300px;
+    max-width: 70%;
+    min-height: 460px;
+    max-height: 70%;
+    background: #fff3c5;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    border-radius: 2px;
+}
+
+.buttons {
+    margin-top: 10px;
+}
+
+.btn {    
+    color: white;
+    font-size: 1.2em;    
+    padding: 20px;
+    width: 200px;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-rounded {
+    border-radius: 100px;
+}
+
+.text-scroller-container {
+    height: 100%;
+    width: 110%;
+    padding: 8px 60px 46px 30px;
+    overflow-y: scroll;
+    position: relative;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1.1em;
+}
+
+.btn-past {
+    background: #7b2a3b;
+    border: 1px solid #551d29;
+}
+    .btn-past:hover {
+        background: #702636;
+    }
+.btn-present {
+    background: #e57661;
+    border: 1px solid #ce6c5b;
+}
+    .btn-present:hover {
+        background: #ce6c5b;
+    }
+.btn-future {
+    background: #86ddb2;
+    border: 1px solid #174c37;
+}
+    .btn-future:hover {
+        background: #3cad7e;
+    }
+
+
+@media(max-width: 650px) {
+    .buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    .btn {
+        width: 32.333%;
+    }
+}
+
+@media(max-width: 320px) {
+
+    .main-card {
+        max-width: 300px;
+        max-height: 460px;
+        overflow: hidden;
+    }    
+}
+
+
+h2 {
+    text-align: center;
+}
