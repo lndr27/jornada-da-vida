@@ -91,6 +91,7 @@ button {
         justify-content: center;
         align-items: center;
         width: 100%;
+        margin-top: 16px;
     }
     .btn {
         width: 32.333%;
@@ -104,8 +105,10 @@ button {
     .main-card {
         min-width: 300px;
         max-width: 300px;
-        max-height: 460px;
+        min-height: 400px;
+        max-height: 440px;
         overflow: hidden;
+        margin-top: 26px;
     }
 }
 
