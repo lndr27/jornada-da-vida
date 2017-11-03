@@ -7,6 +7,8 @@
         var challenge = PickRandomChallenge(time) || {};
         $(".text-scroller-container").html(challenge.text || "");
         $(".challenge-type").html(challenge.type || "");
+        $(".challenge-value").html("(" + (challenge.value || "") + " pontos)");
+        //$(".challenge-multi").html((challenge.multiplier || ""));
     });
     
     /**
