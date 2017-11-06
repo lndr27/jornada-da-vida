@@ -21,7 +21,7 @@ window.LifeJourney.Act0Controller = (function() {
 
         var _this = this;
         return $.Deferred(function(def) {
-            $.get("../views/rules_pt-br.html", function(html) {
+            $.get("./views/rules_pt-br.html", function(html) {
                 _this.game.showHtml(html);
                 def.resolve();
             });            
