@@ -64,6 +64,7 @@ window.LifeJourney.Act1Controller = (function() {
         else {
             this.game.bindMainButton("Próximo", this.nextStep.bind(this));
         }
+        this.bindDoubleClickNext();
         this.saveCache();
     };
 
@@ -123,6 +124,14 @@ window.LifeJourney.Act1Controller = (function() {
             totalSteps: this.totalSteps
         });
     };
+
+    Act1Controller.prototype.bindDoubleClickNext = function() {
+
+        var _this = this;
+        this.currentStepBlock().unbind("dblclick").on("dblclick", function() {
+            _this.nextStep();
+        });
+    }
 
     Act1Controller.prototype.loadCache = function(cache) {
 
