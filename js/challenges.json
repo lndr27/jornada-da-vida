@@ -210,5 +210,5 @@
         { "type": "Pergunta", "text": "Se você fosse um personagem de um livro, quem seria?", "value": 5, "multiplier": "" },
         { "type": "Pergunta", "text": "Se você fosse um personagem de um filme, quem seria?", "value": 5, "multiplier": "" },
         { "type": "Pergunta", "text": "Se você pudesse ser um super-herói, quem seria?", "value": 5, "multiplier": "" }        
-    ]   
+    ]
 }
