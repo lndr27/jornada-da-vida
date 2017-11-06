@@ -210,7 +210,7 @@ window.LifeJourney.Act2and3Controller = (function() {
         
         var timerBlock = $("#act-intro").find(".timer");
         var minutes = +timerBlock.attr("data-minutes");
-        return Timer.countDown(0, 0, 3, function(hours, min, sec) {
+        return Timer.countDown(0, minutes, 0, function(hours, min, sec) {
             timerBlock.text(min + ":" + sec);
         });
     };

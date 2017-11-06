@@ -85,7 +85,7 @@ window.LifeJourney.Act1Controller = (function() {
 
         var timerBlock = this.currentStepTimerBlock();
         var minutes = +timerBlock.attr("data-minutes");
-        return Timer.countDown(0, 0, 3, function(hours, min, sec) {
+        return Timer.countDown(0, minutes, 0, function(hours, min, sec) {
             var txt = min + ":" + sec;
             timerBlock.text(txt);
         });
