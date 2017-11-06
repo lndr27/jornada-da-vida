@@ -47,7 +47,7 @@ window.LifeJourney.Act2and3Controller = (function() {
 
         var _this = this;
         return $.Deferred(function(def) {
-            var htmlUrl = _this.game.currentActNumber === 2 ? "./views/act2_pt-br.html" : "./views/act3_pt-br.html";
+            var htmlUrl = _this.game.currentActNumber === 2 ? "./views/act2_pt-br.html?v=" + (new Date()).getTime() : "./views/act3_pt-br.html?v=" + (new Date()).getTime();
             $.get(htmlUrl, function(html) {
                 _this.game.showHtml(html);
                 _this.isHtmlLoaded = true;
@@ -66,7 +66,7 @@ window.LifeJourney.Act2and3Controller = (function() {
                 return;
             }
 
-            $.getJSON("./js/challenges.json", function(data) {
+            $.getJSON("./js/challenges.json?v=" + (new Date()).getTime(), function(data) {
                 _this.challenges = data;
                 _this.isChallengeLoaded = true;
                 def.resolve();

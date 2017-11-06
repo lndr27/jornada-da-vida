@@ -11,13 +11,13 @@ window.LifeJourney.Game = (function() {
 
         this.act0Controller = new LifeJourney.Act0Controller(this);
 
-        this.act1Controller = new LifeJourney.Act1Controller(this, "Ato I", "Partida", "./views/act1_pt-br.html");
+        this.act1Controller = new LifeJourney.Act1Controller(this, "Ato I", "Partida", "./views/act1_pt-br.html?v=" + (new Date()).getTime());
 
         this.act2Controller = new LifeJourney.Act2and3Controller(this);
 
         this.act3Controller = this.act2Controller;
 
-        this.act4Controller = new LifeJourney.Act1Controller(this, "Ato IV", "Chegada", "./views/act4_pt-br.html");
+        this.act4Controller = new LifeJourney.Act1Controller(this, "Ato IV", "Chegada", "./views/act4_pt-br.html?v=" + (new Date()).getTime());
 
         this.maxPlayers = 10;
 
@@ -210,6 +210,7 @@ window.LifeJourney.Game = (function() {
     Game.prototype.showTheEnd = function() {
 
         $(".act-title").text("FIM");
+        $(".act-subtitle").text("");
         this.showActTitle(2000);
     };
 
