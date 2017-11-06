@@ -2,10 +2,18 @@ window.LifeJourney = window.LifeJourney || {};
 
 window.LifeJourney.Act1Controller = (function() {
 
-    var Act1Controller = function(game) {
+    var Act1Controller = function(game, title, subtitle, htmlUrl) {
         this.game = game;
+        
         this.currentStep = 0;
+        
         this.totalSteps = 0;
+
+        this.title = title;
+        
+        this.subtitle = subtitle;
+        
+        this.htmlUrl = htmlUrl;
     };
 
     Act1Controller.prototype.playAct = function() {
@@ -13,7 +21,13 @@ window.LifeJourney.Act1Controller = (function() {
         var _this = this;
         return $.Deferred(function(def) {
             _this.endActSuccess = def.resolve;
-            _this.game.fadeActTitle("ATO I", "Partida", 2000)
+
+            if (_this.currentStep > _this.totalSteps) {
+                _this.endActSuccess();
+                return;
+            }
+
+            _this.game.fadeActTitle(_this.title, _this.subtitle, _this.game.fadeTransitionDelay)
             .then(_this.getHtml.bind(_this))
             .then(_this.nextStep.bind(_this));
         }).promise();
@@ -23,7 +37,7 @@ window.LifeJourney.Act1Controller = (function() {
 
         var _this = this;
         return $.Deferred(function(def) {
-            $.get("../views/act1_pt-br.html", function(html) {
+            $.get(_this.htmlUrl, function(html) {
                 _this.game.showHtml(html);
                 _this.totalSteps = $("[data-step]").length;
                 def.resolve();
@@ -48,44 +62,33 @@ window.LifeJourney.Act1Controller = (function() {
             this.bindTimerButtons();                      
         }
         else {
-            this.bindButtons("Próximo", this.nextStep.bind(this));
+            this.game.bindMainButton("Próximo", this.nextStep.bind(this));
         }
-        this.game.saveCache();
+        this.saveCache();
     };
 
     Act1Controller.prototype.bindTimerButtons = function() {
 
         var _this = this;
-        this.bindButtons("Começar", function() {
+        this.game.bindMainButton("Começar", function() {
             
             $("#main-btn").unbind("click").addClass("hide");
 
             _this.startTime().done(function() {
-                this.currentStepTimerBlock().text("00:00");
-                _this.bindButtons("Próximo", _this.nextStep.bind(_this))
+                _this.currentStepTimerBlock().text("00:00");
+                _this.game.bindMainButton("Próximo", _this.nextStep.bind(_this));
             });
-        });  
-
+        });
     };
 
     Act1Controller.prototype.startTime = function() {
 
         var timerBlock = this.currentStepTimerBlock();
         var minutes = +timerBlock.attr("data-minutes");
-        return Timer.countDown(0, minutes, 0, function(hours, min, sec) {
+        return Timer.countDown(0, 0, 3, function(hours, min, sec) {
             var txt = min + ":" + sec;
             timerBlock.text(txt);
         });
-    };
-
-    Act1Controller.prototype.bindButtons = function(txt, onClick) {
-
-        var _this = this;
-        $("#main-btn").text(txt);
-        $("#main-btn")[0].className = "btn btn-rounded btn-red";
-        $("#main-btn")
-        .unbind("click")
-        .on("click", onClick);        
     };
 
     Act1Controller.prototype.stepHasTimer = function() {
@@ -113,9 +116,24 @@ window.LifeJourney.Act1Controller = (function() {
         $("[data-act=1] [data-step=" + (this.currentStep) + "]").removeClass("hide");
     };
 
+    Act1Controller.prototype.saveCache = function() {
+
+        this.game.saveCache({
+            currentStep: this.currentStep,
+            totalSteps: this.totalSteps
+        });
+    };
+
     Act1Controller.prototype.loadCache = function(cache) {
 
-        this.currentStep = cache.currentStep;
+        this.currentStep = cache.currentStep || 0;
+        this.totalSteps = cache.totalSteps || 0;
+    };
+
+    Act1Controller.prototype.reset = function(cache) {
+        
+        this.currentStep = 0;
+        this.totalSteps = 0;
     };
 
     return Act1Controller;

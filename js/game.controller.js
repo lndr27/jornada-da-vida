@@ -11,11 +11,13 @@ window.LifeJourney.Game = (function() {
 
         this.act0Controller = new LifeJourney.Act0Controller(this);
 
-        this.act1Controller = new LifeJourney.Act1Controller(this);
+        this.act1Controller = new LifeJourney.Act1Controller(this, "Ato I", "Partida", "../views/act1_pt-br.html");
 
         this.act2Controller = new LifeJourney.Act2and3Controller(this);
 
         this.act3Controller = this.act2Controller;
+
+        this.act4Controller = new LifeJourney.Act1Controller(this, "Ato IV", "Chegada", "../views/act4_pt-br.html");
 
         this.maxPlayers = 10;
 
@@ -33,6 +35,8 @@ window.LifeJourney.Game = (function() {
 
         this.currentPlayer = 0;
 
+        this.fadeTransitionDelay = 4000;
+
         this.loadCachedGame();
         this.bindStartButton();
     };
@@ -41,16 +45,20 @@ window.LifeJourney.Game = (function() {
         
         var controller = this.getActController(this.currentActNumber);
         controller.playAct()
-        .done(this.switchAct.bind(this));
+        .then(this.switchAct.bind(this));
     };
 
     Game.prototype.switchAct = function() {
 
         this.currentActNumber += 1;
-        if (this.currentActNumber <= this.lastActNumber) {
-            this.start();
+
+        if (this.currentActNumber > this.lastActNumber) {
+            this.showTheEnd();
+            return;
         }
+        this.start();
         this.saveCache();
+        
     };
     
     Game.prototype.loadCachedGame = function () {
@@ -82,11 +90,6 @@ window.LifeJourney.Game = (function() {
         $(".main-card").html(html);
     };
 
-    Game.prototype.fadeInOutPlayerName = function() {
-
-        return this.fadeActTitle(this.getCurrentPlayerName(), "", 1000);
-    };
-
     Game.prototype.fadeActTitle = function(title, subtitle, delay) {
 
         var _this = this;
@@ -101,7 +104,7 @@ window.LifeJourney.Game = (function() {
             $(".act-bg").removeClass("hide");
             setTimeout(function() {
                 $(".act-bg").css("opacity", 1);
-            }, 1);
+            }, 100);
             setTimeout(def.resolve, delay);
 
         }).promise();
@@ -121,13 +124,23 @@ window.LifeJourney.Game = (function() {
 
     Game.prototype.bindStartButton = function() {
 
-        $(".main-title").off("click", this.start.bind(this)).on("click", this.start.bind(this));
+        var _this = this;
+        $(".main-title").unbind("click").on("click", function() {
+            _this.reset();
+            _this.start();
+        });
+
+        this.bindMainButton("Continuar", function() { 
+
+            _this.hideMainButton();
+            _this.start();
+        });
     };
 
     Game.prototype.switchToNextPlayer = function() {
 
         this.currentPlayer += 1;
-        if (this.currentPlayer > this.numberOfPlayers) {
+        if (this.currentPlayer >= this.numberOfPlayers) {
             this.currentPlayer = 0;
         }
     };
@@ -167,14 +180,30 @@ window.LifeJourney.Game = (function() {
         .on("click", cb);
     };
 
-    Game.prototype.hideMainButton = function() {
+    Game.prototype.hideMainButton = function(unbindIt) {
 
         $("#main-btn").addClass("hide");
+        unbindIt && $("#main-btn").unbind("click");
     };
 
     Game.prototype.reset = function() {
 
+        this.totalPoints = 0;
+        this.currentActNumber = 0;
+        this.numberOfPlayers = 1;
+        this.playersNames = [];
+        this.currentPlayer = 0;
+        this.act0Controller.reset();
+        this.act1Controller.reset();
+        this.act2Controller.reset();
+        this.act3Controller.reset();
         window.localStorage.clear();
+    };
+
+    Game.prototype.showTheEnd = function() {
+
+        $(".act-title").text("FIM");
+        this.showActTitle(2000);
     };
 
     return Game;

@@ -1,0 +1,40 @@
+{
+    "steps": [
+        {
+            "id": 1,
+            "title": "",
+            "text": "Principal elemento do jogo: <strong>ATENÇÃO!!!</strong> <br/> Antes de cada Ato, todos precisam bater palma ao mesmo tempo. Começando agora!",
+            "timer": ""
+        },
+        {
+            "id": 2,
+            "title": "",
+            "text": "<img src='https://museudoamanha.org.br/sites/default/files/Visite_1280x800_MdA-BernardLessa__1456509569_189.60.197.72.jpg' />",
+            "timer": ""
+        },
+        {
+            "id": 3,
+            "title": "Meditação",
+            "text": "Respiração por 2 minutos olhos fechados. Treino da atenção em perceber as sensações no corpo. (Relaxar é mais desistir do que tentar)",
+            "timer": "00:03:00"
+        },
+        {
+            "id": 4,
+            "title": "Meditação",
+            "text": "Por 2 minutos olhos abertos apenas observando os participantes do jogo.",
+            "timer": "00:03:00"
+        },
+        {
+            "id": 5,
+            "title": "",
+            "text": "Neste Jogo, você vai entregar o seu máximo. Veja como Pavaroti fazia, não esperamos nada menos do que isso!",
+            "timer": "00:03:00"
+        },
+        {
+            "id": 6,
+            "title": "",
+            "text": "Neste Jogo, você vai entregar o seu máximo. Veja como Pavaroti fazia, não esperamos nada menos do que isso!",
+            "timer": "00:03:00"
+        }
+    ]
+}

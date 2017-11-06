@@ -11,7 +11,7 @@ window.LifeJourney.Act0Controller = (function() {
         var _this = this;
         return $.Deferred(function(def) {
             _this.endActSuccess = def.resolve;
-            _this.game.fadeActTitle("Regras do Jogo", "", 2000)
+            _this.game.fadeActTitle("Regras do Jogo", "", _this.game.fadeTransitionDelay)
             .then(_this.showRules.bind(_this))
             .done(_this.bindEvents.bind(_this));
         }).promise();
@@ -36,16 +36,20 @@ window.LifeJourney.Act0Controller = (function() {
     Act0Controller.prototype.bindButton = function() {
 
         var _this = this;
-        $("#main-btn").text("Continuar");
-        $("#main-btn")[0].className = "btn btn-rounded btn-green";
-        $("#main-btn")
-        .unbind("click")
-        .on("click", function() {
-
+        this.game.bindMainButton("Continuar", function() {
             _this.savePlayerNames();
+            _this.fillEmptyPlayerNames();
             $(this).unbind("click").addClass("hide");
-            _this.endActSuccess();            
-        });        
+            _this.endActSuccess();
+        });      
+
+    };
+
+    Act0Controller.prototype.fillEmptyPlayerNames = function() {
+        
+        for( var i = 0; i < this.game.playersNames.length; ++i) {
+            this.game.playersNames[i] = this.game.playersNames[i] || "Player " + (i + 1);
+        }
     };
 
     Act0Controller.prototype.savePlayerNames = function() {
@@ -139,6 +143,10 @@ window.LifeJourney.Act0Controller = (function() {
     };
 
     Act0Controller.prototype.loadCache = function(cache) {
+        
+    }
+
+    Act0Controller.prototype.reset = function() {
         
     }
 

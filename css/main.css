@@ -210,6 +210,10 @@ button {
         padding: 8px;
         font-size: 1.1em;
     }
+
+    .content-center {
+        justify-content: normal;
+    }
 }
 
 @media(max-width: 320px) {
@@ -231,6 +235,8 @@ button {
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 .text-center { text-align: center; }
+.float-right { float: right; }
+.float-left { float: left; }
 
 input.playerNumber {
     background: transparent;
