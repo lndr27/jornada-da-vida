@@ -11,13 +11,13 @@ window.LifeJourney.Game = (function() {
 
         this.act0Controller = new LifeJourney.Act0Controller(this);
 
-        this.act1Controller = new LifeJourney.Act1Controller(this, "Ato I", "Partida", "../views/act1_pt-br.html");
+        this.act1Controller = new LifeJourney.Act1Controller(this, "Ato I", "Partida", "./views/act1_pt-br.html");
 
         this.act2Controller = new LifeJourney.Act2and3Controller(this);
 
         this.act3Controller = this.act2Controller;
 
-        this.act4Controller = new LifeJourney.Act1Controller(this, "Ato IV", "Chegada", "../views/act4_pt-br.html");
+        this.act4Controller = new LifeJourney.Act1Controller(this, "Ato IV", "Chegada", "./views/act4_pt-br.html");
 
         this.maxPlayers = 10;
 
@@ -130,11 +130,13 @@ window.LifeJourney.Game = (function() {
             _this.start();
         });
 
-        this.bindMainButton("Continuar", function() { 
+        if (this.hasCache()) {
+            this.bindMainButton("Continuar", function() { 
 
-            _this.hideMainButton();
-            _this.start();
-        });
+                _this.hideMainButton();
+                _this.start();
+            });
+        }
     };
 
     Game.prototype.switchToNextPlayer = function() {
@@ -154,6 +156,11 @@ window.LifeJourney.Game = (function() {
 
         this.totalPoints += points;
     }
+
+    Game.prototype.hasCache = function() {
+
+        return window.localStorage.getItem(CACHE_KEY) ? true : false;
+    };
 
     Game.prototype.saveCache = function(obj) {
 

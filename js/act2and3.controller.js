@@ -47,7 +47,7 @@ window.LifeJourney.Act2and3Controller = (function() {
 
         var _this = this;
         return $.Deferred(function(def) {
-            var htmlUrl = _this.game.currentActNumber === 2 ? "../views/act2_pt-br.html" : "../views/act3_pt-br.html";
+            var htmlUrl = _this.game.currentActNumber === 2 ? "./views/act2_pt-br.html" : "./views/act3_pt-br.html";
             $.get(htmlUrl, function(html) {
                 _this.game.showHtml(html);
                 _this.isHtmlLoaded = true;
