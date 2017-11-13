@@ -261,3 +261,11 @@ input.playerName {
     width: 100%;
     height: 100%;
 }
+
+.skip-to-act li {
+    cursor: pointer;
+}
+
+.skip-to-act li:hover {
+    color: #388875;
+}
