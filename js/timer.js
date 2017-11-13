@@ -6,7 +6,7 @@ window.Timer.countDown = function(hours, min, sec, cb) {
         var now = new Date();
         var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + hours, now.getMinutes() + min,  now.getSeconds() + sec, 0);
     
-        var intervalId = setInterval(function() {
+        window.Timer.intervalId = setInterval(function() {
     
             now = (new Date()).getTime();
     
@@ -31,6 +31,9 @@ window.Timer.countDown = function(hours, min, sec, cb) {
         }, 1000);
     }).promise();
     
+};
+window.Timer.stop = function() {
+    window.clearInterval(window.Timer.intervalId);
 };
 
 window.getRandomInt = function(min, max) {

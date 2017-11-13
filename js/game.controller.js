@@ -37,6 +37,8 @@ window.LifeJourney.Game = (function() {
 
         this.fadeTransitionDelay = 4000;
 
+        this.actListHtml = "";
+
         this.loadCachedGame();
         this.bindStartButton();
     };
@@ -44,6 +46,7 @@ window.LifeJourney.Game = (function() {
     Game.prototype.start = function() {
         
         var controller = this.getActController(this.currentActNumber);
+        
         controller.playAct()
         .then(this.switchAct.bind(this));
     };
@@ -59,6 +62,17 @@ window.LifeJourney.Game = (function() {
         this.start();
         this.saveCache();
         
+    };
+
+    Game.prototype.getActListHtml = function() {
+
+        var _this = this;
+        return $.Deferred(function(def) {
+            $.get("./views/act_list_pt-br.html?v=" + (new Date()).getTime(), function(html) {
+                _this.showHtml(html);
+                def.resolve();
+            });            
+        }).promise();
     };
     
     Game.prototype.loadCachedGame = function () {
@@ -137,6 +151,21 @@ window.LifeJourney.Game = (function() {
                 _this.start();
             });
         }
+
+        this.bindSecondaryButton("Pular", function() {
+
+            _this.getActListHtml()
+            .then(function() {
+
+                $(".skip-to-act li").unbind("click").on("click", function() {
+                    var actNumber = +$(this).attr("data-act");
+                    _this.currentActNumber = actNumber;
+                    _this.start();
+                });                
+            });
+            _this.hideSecondaryButton(true);
+            _this.hideMainButton(true);
+        });
     };
 
     Game.prototype.switchToNextPlayer = function() {
@@ -187,10 +216,25 @@ window.LifeJourney.Game = (function() {
         .on("click", cb);
     };
 
+    Game.prototype.bindSecondaryButton = function(btnText, cb) {
+        
+        $("#skip-to-act-btn")
+        .text(btnText)
+        .removeClass("hide")
+        .unbind("click")
+        .on("click", cb);
+    };
+
     Game.prototype.hideMainButton = function(unbindIt) {
 
         $("#main-btn").addClass("hide");
         unbindIt && $("#main-btn").unbind("click");
+    };
+
+    Game.prototype.hideSecondaryButton = function(unbindIt) {
+        
+        $("#skip-to-act-btn").addClass("hide");
+        unbindIt && $("#skip-to-act-btn").unbind("click");
     };
 
     Game.prototype.reset = function() {

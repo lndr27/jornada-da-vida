@@ -71,9 +71,13 @@ window.LifeJourney.Act1Controller = (function() {
     Act1Controller.prototype.bindTimerButtons = function() {
 
         var _this = this;
+        var stopTimer = false;
         this.game.bindMainButton("Começar", function() {
             
-            $("#main-btn").unbind("click").addClass("hide");
+            _this.game.bindMainButton("Pular", function() {
+                _this.nextStep.call(_this);
+                Timer.stop();
+            });
 
             _this.startTime().done(function() {
                 _this.currentStepTimerBlock().text("00:00");

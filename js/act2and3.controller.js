@@ -203,6 +203,7 @@ window.LifeJourney.Act2and3Controller = (function() {
     Act2and3Controller.prototype.timerStartBtnClick = function() {
         
         this.game.hideMainButton();
+        this.game.bindMainButton("Pular", this.timerDoneBtnClick.bind(this));
         this.playTimer().then(this.timerDoneCallback.bind(this));
     };
 
@@ -222,6 +223,7 @@ window.LifeJourney.Act2and3Controller = (function() {
 
     Act2and3Controller.prototype.timerDoneBtnClick = function() {
 
+        Timer.stop();
         this.actHasVideo() ? this.showVideo() : this.playRound();
     };
 
