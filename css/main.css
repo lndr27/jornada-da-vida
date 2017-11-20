@@ -145,7 +145,7 @@ button {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    transition: opacity 3s;
+    transition: opacity 1.5s;
     opacity: 0;
 }
 
@@ -269,3 +269,8 @@ input.playerName {
 .skip-to-act li:hover {
     color: #388875;
 }
+
+.w-100  {
+    width: 100% !important;
+}
+

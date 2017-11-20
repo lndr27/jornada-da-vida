@@ -35,7 +35,7 @@ window.LifeJourney.Game = (function() {
 
         this.currentPlayer = 0;
 
-        this.fadeTransitionDelay = 4000;
+        this.fadeTransitionDelay = 2000;
 
         this.actListHtml = "";
 
@@ -142,17 +142,21 @@ window.LifeJourney.Game = (function() {
         $(".main-title").unbind("click").on("click", function() {
             _this.reset();
             _this.start();
+            _this.hideSecondaryButton(true);
         });
 
         if (this.hasCache()) {
             this.bindMainButton("Continuar", function() { 
 
                 _this.hideMainButton();
+                _this.hideSecondaryButton(true);
                 _this.start();
             });
         }
 
         this.bindSecondaryButton("Pular", function() {
+
+            _this.reset();
 
             _this.getActListHtml()
             .then(function() {

@@ -184,7 +184,7 @@ window.LifeJourney.Act2and3Controller = (function() {
 
     Act2and3Controller.prototype.updateRoundText = function() {
 
-        $(".round").html("Rodada: " + this.currentRound);
+        $(".round").html("Rodada: " + Math.floor(this.currentRound / this.game.numberOfPlayers));
     };
 
     // INTRO
