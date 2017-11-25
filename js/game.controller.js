@@ -42,7 +42,7 @@ window.LifeJourney.Game = (function() {
         this.loadCachedGame();
         this.bindStartButton();
 
-        this.bell = new Audio("./../audio/bell.mp3");
+        this.bell = new Audio("./audio/bell.mp3");
 
         window.foo  = this;
     };
