@@ -25,7 +25,7 @@ window.Timer.countDown = function(hours, min, sec, cb) {
             cb.call(this, hours, minutes, seconds);
     
             if (elapsed < 0) {
-                clearInterval(intervalId);
+                clearInterval(window.Timer.intervalId);
                 def.resolve();
             }
         }, 1000);

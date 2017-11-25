@@ -48,6 +48,7 @@ window.LifeJourney.Act1Controller = (function() {
     Act1Controller.prototype.nextStep = function() {
 
         this.currentStep += 1;
+        this.game.pauseBell();
 
         if (this.currentStep > this.totalSteps) {
             $("#main-btn").unbind("click").addClass("hide");
@@ -64,7 +65,7 @@ window.LifeJourney.Act1Controller = (function() {
         else {
             this.game.bindMainButton("Próximo", this.nextStep.bind(this));
         }
-        this.bindDoubleClickNext();
+        
         this.saveCache();
     };
 
@@ -75,11 +76,13 @@ window.LifeJourney.Act1Controller = (function() {
         this.game.bindMainButton("Começar", function() {
             
             _this.game.bindMainButton("Pular", function() {
+                _this.game.hideMainButton(true);
                 _this.nextStep.call(_this);
                 Timer.stop();
             });
 
             _this.startTime().done(function() {
+                _this.game.playBell();
                 _this.currentStepTimerBlock().text("00:00");
                 _this.game.bindMainButton("Próximo", _this.nextStep.bind(_this));
             });

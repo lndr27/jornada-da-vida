@@ -41,8 +41,12 @@ window.LifeJourney.Game = (function() {
 
         this.loadCachedGame();
         this.bindStartButton();
-    };
 
+        this.bell = new Audio("./../audio/bell.mp3");
+
+        window.foo  = this;
+    };
+    
     Game.prototype.start = function() {
         
         var controller = this.getActController(this.currentActNumber);
@@ -148,7 +152,7 @@ window.LifeJourney.Game = (function() {
         if (this.hasCache()) {
             this.bindMainButton("Continuar", function() { 
 
-                _this.hideMainButton();
+                _this.hideMainButton(true);
                 _this.hideSecondaryButton(true);
                 _this.start();
             });
@@ -252,6 +256,7 @@ window.LifeJourney.Game = (function() {
         this.act1Controller.reset();
         this.act2Controller.reset();
         this.act3Controller.reset();
+        this.act4Controller.reset();
         window.localStorage.clear();
     };
 
@@ -260,6 +265,19 @@ window.LifeJourney.Game = (function() {
         $(".act-title").text("FIM");
         $(".act-subtitle").text("");
         this.showActTitle(2000);
+        this.reset();
+    };
+
+    Game.prototype.playBell = function() {
+
+        this.bell.currentTime = 0;
+        this.bell.play();
+    };
+
+    Game.prototype.pauseBell = function() {
+
+        this.bell.pause();
+        this.bell.currentTime = 0;        
     };
 
     return Game;

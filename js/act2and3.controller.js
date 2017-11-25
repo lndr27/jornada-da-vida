@@ -7,6 +7,8 @@ window.LifeJourney.Act2and3Controller = (function() {
         this.game = game;
         
         this.challenges = null;
+
+        this.bkpChallenges = null;
         
         this.currentChallenge = null;
         
@@ -68,6 +70,7 @@ window.LifeJourney.Act2and3Controller = (function() {
 
             $.getJSON("./js/challenges.json?v=" + (new Date()).getTime(), function(data) {
                 _this.challenges = data;
+                _this.bkpChallenges = $.extend({}, data);
                 _this.isChallengeLoaded = true;
                 def.resolve();
             });
@@ -116,7 +119,7 @@ window.LifeJourney.Act2and3Controller = (function() {
             this.toggleButton(false);
             return;
         }
-        this.currentChallenge = this.pickRandomChallenge() || {}; 
+        this.currentChallenge = this.pickRandomChallenge() || {};
         this.game.switchToNextPlayer();
         this.playRound();
     };    
@@ -160,11 +163,20 @@ window.LifeJourney.Act2and3Controller = (function() {
     };
 
     Act2and3Controller.prototype.pickRandomChallenge = function () {
-
+        
         var type = this.game.currentActNumber === 2 ? "myStory" : "myFuture";
         var max = this.challenges[type].length - 1;
         var rand = getRandomInt(0, max);
-        return this.challenges[type][rand];
+        var challenge = this.challenges[type][rand];
+
+        // remove picked challenge
+        this.challenges[type].splice(this.challenges[type].indexOf(challenge), 1);
+
+        if (this.challenges[type].length === 0) {
+            this.challenges[type] = this.bkpChallenges[type].slice();
+        }
+
+        return challenge;
     }
 
     Act2and3Controller.prototype.setCurrentPlayerName = function() {
@@ -202,7 +214,7 @@ window.LifeJourney.Act2and3Controller = (function() {
 
     Act2and3Controller.prototype.timerStartBtnClick = function() {
         
-        this.game.hideMainButton();
+        this.game.hideMainButton(true);
         this.game.bindMainButton("Pular", this.timerDoneBtnClick.bind(this));
         this.playTimer().then(this.timerDoneCallback.bind(this));
     };
@@ -218,12 +230,15 @@ window.LifeJourney.Act2and3Controller = (function() {
 
     Act2and3Controller.prototype.timerDoneCallback = function() {
 
+        this.game.playBell();
         this.game.bindMainButton("Continuar", this.timerDoneBtnClick.bind(this));
     };
 
     Act2and3Controller.prototype.timerDoneBtnClick = function() {
 
+        this.game.pauseBell();
         Timer.stop();
+        this.game.hideMainButton(true);
         this.actHasVideo() ? this.showVideo() : this.playRound();
     };
 
@@ -237,7 +252,7 @@ window.LifeJourney.Act2and3Controller = (function() {
 
     Act2and3Controller.prototype.videoDoneClick = function() {
 
-        this.game.hideMainButton();
+        this.game.hideMainButton(true);
         this.hideIntro();
         this.playRound();
         this.saveCache();
