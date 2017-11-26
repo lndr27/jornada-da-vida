@@ -81,6 +81,7 @@ window.LifeJourney.Act1Controller = (function() {
                 Timer.stop();
             });
 
+            _this.game.playBell();
             _this.startTime().done(function() {
                 _this.game.playBell();
                 _this.currentStepTimerBlock().text("00:00");

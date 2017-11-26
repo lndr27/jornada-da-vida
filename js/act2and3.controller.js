@@ -214,6 +214,7 @@ window.LifeJourney.Act2and3Controller = (function() {
 
     Act2and3Controller.prototype.timerStartBtnClick = function() {
         
+        this.game.playBell();
         this.game.hideMainButton(true);
         this.game.bindMainButton("Pular", this.timerDoneBtnClick.bind(this));
         this.playTimer().then(this.timerDoneCallback.bind(this));
