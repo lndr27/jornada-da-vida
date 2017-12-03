@@ -2,7 +2,7 @@ window.LifeJourney = window.LifeJourney || {};
 
 window.LifeJourney.Act1Controller = (function() {
 
-    var Act1Controller = function(game, title, subtitle, htmlUrl) {
+    var Act1Controller = function(game, title, subtitle, htmlUrl, actNumber) {
         this.game = game;
         
         this.currentStep = 0;
@@ -14,6 +14,8 @@ window.LifeJourney.Act1Controller = (function() {
         this.subtitle = subtitle;
         
         this.htmlUrl = htmlUrl;
+
+        this.actNumber = actNumber;
     };
 
     Act1Controller.prototype.playAct = function() {
@@ -63,7 +65,12 @@ window.LifeJourney.Act1Controller = (function() {
             this.bindTimerButtons();                      
         }
         else {
-            this.game.bindMainButton("Próximo", this.nextStep.bind(this));
+            if (this.currentStep === this.totalSteps && this.actNumber === 4) {
+                this.game.bindMainButton("FIM", this.nextStep.bind(this));
+            }
+            else {
+                this.game.bindMainButton("Próximo", this.nextStep.bind(this));
+            }
         }
         
         this.saveCache();
